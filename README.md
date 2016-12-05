@@ -9,10 +9,10 @@ It can be used to load CSV to
  - Postgres
 
 ## What it does: 
- - create the parser config for the csv : `CsvParserConfig`[link](../src/main/java/com/scienaptic/csvloader/CsvParserConfig)
+ - create the parser config for the csv : [`CsvParserConfig`](../master/src/main/java/com/scienaptic/csvloader/CsvParserConfig.java)
  - infer the schema of the CSV file in question
-   - `CSVLoader` has internal `Column` type semantics
-   - inferred [types](../src/main/scala/com/scienaptic/csvloader/FieldTypes) are one of :
+   - `CSVLoader` has internal [`Column`](../master/src/main/java/com/scienaptic/csvloader/Column.java) type semantics
+   - inferred [`FieldTypes`](../master/src/main/scala/com/scienaptic/csvloader/Field.scala) are one of :
      - BOOLEAN
      - CATEGORY
      - FLOAT
