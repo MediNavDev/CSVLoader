@@ -1,5 +1,12 @@
 # CSVLoader
-Scienaptic's kick ass CSV loader
+Scienaptic's kick ass CSV loader.
+CSV are an unfortunate part of every dev's life.
+This is an effort to ease pain points of our use case.
+
+It can be used to load CSV to 
+ - MySQL
+ - H2DB [save it to file system]
+ - Postgres
 
 # License
 Unless otherwise specified, each and every component is APL 2.0 licensed.
