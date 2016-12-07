@@ -39,22 +39,22 @@ public final class CsvParserConfig {
 
     public Builder() { }
 
-    public Builder setHasHeader(boolean hasHeader) {
+    public Builder hasHeader(boolean hasHeader) {
       this.hasHeader = hasHeader;
       return this;
     }
 
-    public Builder setFieldSeparator(char fieldSeparator) {
+    public Builder fieldSeparator(char fieldSeparator) {
       this.fieldSeparator = fieldSeparator;
       return this;
     }
 
-    public Builder setFieldDelimiter(char fieldDelimiter) {
+    public Builder fieldDelimiter(char fieldDelimiter) {
       this.fieldDelimiter = fieldDelimiter;
       return this;
     }
 
-    public Builder setLineSeparator(String lineSeparator) {
+    public Builder lineSeparator(String lineSeparator) {
       this.lineSeparator = lineSeparator;
       return this;
     }

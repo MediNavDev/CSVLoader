@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 
 public class TestInsertion {
   private CsvParserConfig config = CsvParserConfig.defaultBuilder
-      .setLineSeparator("\r\n")
+      .lineSeparator("\r\n")
       .build();
   private final JdbcDetails details = new JdbcDetails("jdbc:mysql://localhost:3306/csvDB?createIfNotExists=true", "root", "root");
   private final String[] files = {"/Users/apple/Downloads/scienaptic.datasets/HACKER_EARTH_dataset/users.csv",
@@ -37,7 +37,7 @@ public class TestInsertion {
   public void test() throws IOException, SQLException {
     for (int i = 0; i < files.length; i++) {
       if (i == 4)
-        config = CsvParserConfig.newBuilder(config).setFieldSeparator('|').build();
+        config = CsvParserConfig.newBuilder(config).fieldSeparator('|').build();
 
       Tuple2<String, String> pair = queries(config, Paths.get(files[i]));
       Stopwatch stopwatch = Stopwatch.createStarted();
