@@ -15,14 +15,16 @@ import scala.collection.JavaConversions
 object StandaloneRunner extends LazyLogging {
   def main(args: Array[String]): Unit = {
     logger.info("Looking up parser configurations .... ")
-    val configs = PropertyReader.parserConfigs
-    logger.info("Parser configs created: {}", configs.mkString("\n"))
+
     val targetDetails: JdbcDetails = PropertyReader.jdbcDetails
     val jdbcTemplate: JdbcTemplate = PropertyReader.createTemplate(targetDetails)
     val schemaName = PropertyReader.schemaName
     val threshold = PropertyReader.sampleThreshold
 
-    PropertyReader.filesAndParsers.foreach(ioAction(schemaName, targetDetails, threshold, _, jdbcTemplate))
+    val configContainers: List[ConfigContainer] = PropertyReader.filesAndParsers
+    logger.info("Configs obtained: {}", configContainers.mkString("\n"))
+
+    configContainers.foreach(ioAction(schemaName, targetDetails, threshold, _, jdbcTemplate))
   }
 
   def ioAction(schemaName: String,

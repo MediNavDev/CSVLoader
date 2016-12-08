@@ -23,7 +23,7 @@ public final class CsvParserConfig {
     this.lineSeparator = lineSeparator;
   }
 
-  public static CsvParserConfig fromHOCON(Config config) {
+  public static CsvParserConfig fromHocon(Config config) {
     // default - if no header then true
     boolean header = !config.hasPath("header") || config.getBoolean("header");
     char fs = config.hasPath("fieldSeparator") ? config.getString("fieldSeparator").charAt(0) : ',';
