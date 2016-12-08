@@ -1,5 +1,7 @@
 package com.scienaptic.csvloader;
 
+import com.typesafe.config.Config;
+
 public final class CsvParserConfig {
   public static final CsvParserConfig defaultConfig =
       new CsvParserConfig(true, ',', '\"', "\r");
@@ -19,6 +21,15 @@ public final class CsvParserConfig {
     this.fieldSeparator = fieldSeparator;
     this.fieldDelimiter = fieldDelimiter;
     this.lineSeparator = lineSeparator;
+  }
+
+  public static CsvParserConfig fromHOCON(Config config) {
+    // default - if no header then true
+    boolean header = !config.hasPath("header") || config.getBoolean("header");
+    char fs = config.hasPath("fieldSeparator") ? config.getString("fieldSeparator").charAt(0) : ',';
+    char fd = config.hasPath("fieldDelimiter") ? config.getString("fieldDelimiter").charAt(0) : '\"';
+    String ls = config.hasPath("lineSeparator") ? config.getString("lineSeparator") : "\r";
+    return new CsvParserConfig(header, fs, fd, ls);
   }
 
   public static Builder newBuilder() { return new Builder(); }
