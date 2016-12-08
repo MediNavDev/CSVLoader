@@ -4,7 +4,6 @@ import java.util
 import java.util.Map.Entry
 import javax.sql.DataSource
 
-import com.scienaptic.csvloader.CsvParserConfig
 import com.scienaptic.csvloader.db.JdbcDetails
 import com.typesafe.config.{Config, ConfigFactory, ConfigRenderOptions, ConfigValue}
 import com.typesafe.scalalogging.LazyLogging
@@ -26,14 +25,10 @@ object PropertyReader extends LazyLogging {
     cfg
   }
 
-  def parserConfigs: List[CsvParserConfig] = {
-    val jList = config.getConfigList("parserConfigs")
-    JavaConversions.asScalaBuffer(jList).toList.map(CsvParserConfig.fromHOCON)
+  def filesAndParsers: List[ConfigContainer] = {
+    val jList = config.getConfigList("configs")
+    JavaConversions.asScalaBuffer(jList).toList.map(ConfigContainer.fromHocon)
   }
-
-  class ConfigContainer(val filePath: String, val config: CsvParserConfig, val tableName: String)
-
-  def filesAndParsers: List[ConfigContainer] = ???
 
   def jdbcDetails: JdbcDetails = {
     val cfg: Config = config.getConfig("jdbcDetails")

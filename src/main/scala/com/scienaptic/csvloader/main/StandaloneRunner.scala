@@ -3,10 +3,9 @@ package com.scienaptic.csvloader.main
 import java.nio.file.Paths
 import java.util
 
-import com.scienaptic.csvloader.db.{JdbcDetails, SchemaBuilder2}
-import com.scienaptic.csvloader.utils.{PropertyReader, Stopwatch}
-import com.scienaptic.csvloader.utils.PropertyReader.ConfigContainer
 import com.scienaptic.csvloader._
+import com.scienaptic.csvloader.db.{JdbcDetails, SchemaBuilder2}
+import com.scienaptic.csvloader.utils.{ConfigContainer, PropertyReader, Stopwatch}
 import com.typesafe.scalalogging.LazyLogging
 import org.springframework.jdbc.core.JdbcTemplate
 
