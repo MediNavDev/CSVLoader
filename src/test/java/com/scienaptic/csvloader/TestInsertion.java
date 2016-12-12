@@ -64,6 +64,7 @@ public class TestInsertion {
 
     String ddl = SchemaBuilder2.createDDL(schema, DatasourceType.MySQL);
     assertTrue(TypeUtil.isNotEmpty(ddl));
+    System.out.println("DDL query: " + ddl);
     String insertQry = SchemaBuilder2.createInsertQry(schema, path, config, DatasourceType.MySQL);
     assertTrue(TypeUtil.isNotEmpty(insertQry));
     return Tuple2.of(ddl, insertQry);
