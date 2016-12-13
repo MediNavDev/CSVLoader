@@ -29,8 +29,10 @@ object MySQLBuilder {
 //    "MMM dd, yyyy" -> "%%%",
 //    "MMM d, yyyy" -> "%%%",
     "dd-MM-yyyy" -> "%d-%m-%Y",
+
     // date time
-    "yyyy-MM-dd HH:mm:ss" -> "%Y-%m-%d %H:%i:%s"
+    "yyyy-MM-dd HH:mm:ss" -> "%Y-%m-%d %H:%i:%s",
+    "yyyy-MM-dd'T'HH:mm:ss" -> "%Y-%m-%dT%H:%i:%s"
   )
 
   val fieldExpr: FieldType => String = {

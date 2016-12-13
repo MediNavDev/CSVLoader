@@ -42,10 +42,11 @@ public class TypeUtil {
           .map(fmt -> Tuple2.of(fmt, DateTimeFormatter.ofPattern(fmt)))
           .collect(collectingAndThen(toList(), ImmutableList::copyOf));
 
+//  2016-11-09T01:52:53
   private static final List<String> dateTimeFormats =
       Lists.newArrayList("yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm:ss.SSS",
           "MM/dd/yyyy hh:mm:ss a", "dd-MMM-yyyy HH:mm",
-          "dd-MMM-yyyy HH:mm");
+          "dd-MMM-yyyy HH:mm", "yyyy-MM-dd'T'HH:mm:ss");
   public static final ImmutableList<Tuple2<String, DateTimeFormatter>> dateTimeFormatters =
       dateTimeFormats.stream()
           .map(fmt -> Tuple2.of(fmt, DateTimeFormatter.ofPattern(fmt)))

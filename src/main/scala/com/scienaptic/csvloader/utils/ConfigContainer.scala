@@ -3,7 +3,7 @@ package com.scienaptic.csvloader.utils
 import com.scienaptic.csvloader.CsvParserConfig
 import com.typesafe.config.Config
 
-class ConfigContainer(val filePath: String,
+case class ConfigContainer(val filePath: String,
                       val config: CsvParserConfig,
                       val tableName: String)
 
