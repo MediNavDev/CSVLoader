@@ -3,9 +3,9 @@ package com.scienaptic.csvloader.utils
 import com.scienaptic.csvloader.CsvParserConfig
 import com.typesafe.config.Config
 
-case class ConfigContainer(val filePath: String,
-                      val config: CsvParserConfig,
-                      val tableName: String)
+case class ConfigContainer(filePath: String,
+                           config: CsvParserConfig,
+                           tableName: String)
 
 object ConfigContainer {
   def fromHocon(cfg: Config): ConfigContainer = {
