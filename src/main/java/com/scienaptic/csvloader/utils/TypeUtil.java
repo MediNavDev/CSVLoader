@@ -32,7 +32,7 @@ public class TypeUtil {
 
   private static final List<String> dateFormats =
       Lists.newArrayList("yyyyMMdd", "MM/dd/yyyy", "MM-dd-yyyy", "MM.dd.yyyy",
-          "yyyy-MM-dd", "yyyy/MM/dd", "dd/MMM/yyyy", "dd-MMM-yyyy",
+          "yyyy-MM-dd", "yyyy/MM/dd", "dd/MM/yyyy", "dd-MMM-yyyy",
           "M/d/yyyy", "M/d/yy", "MMM/dd/yyyy", "MMM-dd-yyyy",
           "MMM/dd/yy", "MMM-dd-yy", "MMM/dd/yyyy", "MMM/d/yyyy",
           "MMM-dd-yy", "MMM dd, yyyy", "MMM d, yyyy", "dd-MM-yyyy");
