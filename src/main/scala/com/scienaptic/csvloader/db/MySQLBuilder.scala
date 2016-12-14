@@ -9,25 +9,9 @@ import org.apache.commons.lang3.StringEscapeUtils
 object MySQLBuilder {
   // map of javaFormats to mySQL Formats
   val mySQLFormats: String => String = Map(
-//    "yyyyMMdd" -> "%%%",
-//    "MM/dd/yyyy" -> "%%%",
-//    "MM-dd-yyyy" -> "%%%",
-//    "MM.dd.yyyy" -> "%%%",
     "yyyy-MM-dd" -> "%Y-%m-%d",
-//    "yyyy/MM/dd" -> "%%%",
-//    "dd/MMM/yyyy" -> "%%%",
+    "dd/MM/yyyy" -> "%d/%m/%Y",
     "dd-MMM-yyyy" -> "%d-%M-%y",
-//    "M/d/yyyy" -> "%%%",
-//    "M/d/yy" -> "%%%",
-//    "MMM/dd/yyyy" -> "%%%",
-//    "MMM-dd-yyyy" -> "%%%",
-//    "MMM/dd/yy" -> "%%%",
-//    "MMM-dd-yy" -> "%%%",
-//    "MMM/dd/yyyy" -> "%%%",
-//    "MMM/d/yyyy" -> "%%%",
-//    "MMM-dd-yy" -> "%%%",
-//    "MMM dd, yyyy" -> "%%%",
-//    "MMM d, yyyy" -> "%%%",
     "dd-MM-yyyy" -> "%d-%m-%Y",
 
     // date time
