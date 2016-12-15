@@ -40,7 +40,7 @@ public final class Reader {
         if (r.nextFloat() < threshold) {
           rowsRead++;
           for (int i = 0; i < row.length; i++) {
-            String col = row[i];
+            String col = row[i].trim();
             builders.get(i).add(col);
           }
         }
