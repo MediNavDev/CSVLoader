@@ -3,12 +3,15 @@ package com.scienaptic.csvloader.db
 import java.nio.file.Path
 
 import com.scienaptic.csvloader.FieldTypes._
+import com.scienaptic.csvloader.utils.TypeUtil
 import com.scienaptic.csvloader.{CsvParserConfig, Field, FieldType, Schema}
 import org.apache.commons.lang3.StringEscapeUtils
 
+import scala.collection.JavaConversions
+
 object MySQLBuilder {
   // map of javaFormats to mySQL Formats
-  val mySQLFormats: String => String = Map(
+  val mysqlDateFormats: String => String = Map(
 //    "yyyyMMdd" -> "%%%",
 //    "MM/dd/yyyy" -> "%%%",
 //    "MM-dd-yyyy" -> "%%%",
@@ -35,8 +38,13 @@ object MySQLBuilder {
     "yyyy-MM-dd'T'HH:mm:ss" -> "%Y-%m-%dT%H:%i:%s"
   )
 
+  val mysqlBooleanFormats = {
+    val seq = JavaConversions.asScalaBuffer(TypeUtil.TRUE_STRINGS_FOR_DETECTION).toIndexedSeq
+    seq.map(s => "'" + s + "'" ).mkString(",")
+  }
+
   val fieldExpr: FieldType => String = {
-    case BOOLEAN => "BIT(1)"
+    case BOOLEAN => "TINYINT(1)"
     case CATEGORY => "VARCHAR(255)"
     case FLOAT => "DECIMAL(10, 5)"
     case SHORT_INT => "MEDIUMINT"
@@ -71,20 +79,27 @@ object MySQLBuilder {
 
     val buffer = new scala.collection.mutable.ListBuffer[String]()
 
+    def stringToDate(name: String, fmt: String, idx: Int): String = {
+      buffer += s"$name = STR_TO_DATE(@var$idx, '${mysqlDateFormats(fmt)}')"
+      s"@var$idx"
+    }
+
+    def stringToBoolean(name: String, idx: Int): String = {
+      buffer += s"$name = (@var$idx IN ($mysqlBooleanFormats))"
+      s"@var$idx"
+    }
+
     val columnNames = schema.fields.zipWithIndex.map {
-      case (Field(name, LOCAL_DATE(fmt)), idx) =>
-        buffer += s"$name = STR_TO_DATE(@var$idx, '${mySQLFormats(fmt)}')"
-        s"@var$idx"
+      case (Field(name, LOCAL_DATE(fmt)), idx) => stringToDate(name, fmt, idx)
 
-      case (Field(name, LOCAL_DATE_TIME(fmt)), idx) =>
-        buffer += s"$name = STR_TO_DATE(@var$idx, '${mySQLFormats(fmt)}')"
-        s"@var$idx"
+      case (Field(name, LOCAL_DATE_TIME(fmt)), idx) => stringToDate(name, fmt, idx)
 
-      case (Field(name, LOCAL_TIME(fmt)), idx) =>
-        buffer += s"$name = STR_TO_DATE(@var$idx, '${mySQLFormats(fmt)}')"
-        s"@var$idx"
+      case (Field(name, LOCAL_TIME(fmt)), idx) => stringToDate(name, fmt, idx)
+
+      case (Field(name, BOOLEAN), idx) => stringToBoolean(name, idx)
 
       case (Field(name, _), _) => name
+
     }.mkString("(", ",", ")")
 
     val setters = if(buffer.nonEmpty) "SET " + buffer.mkString(", ") else ""

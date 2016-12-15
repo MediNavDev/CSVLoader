@@ -24,11 +24,11 @@ public class TypeUtil {
 
   // A more restricted set of 'true' strings that is used for column type detection
   public static final ImmutableList<String> TRUE_STRINGS_FOR_DETECTION =
-      ImmutableList.of("T", "t", "Y", "y", "TRUE", "true");
+      ImmutableList.of("T", "t", "Y", "y", "TRUE", "true", "True", "YES", "Yes", "yes");
 
   // A more restricted set of 'false' strings that is used for column type detection
   public static final ImmutableList<String> FALSE_STRINGS_FOR_DETECTION =
-      ImmutableList.of("F", "f", "N", "n", "FALSE", "false");
+      ImmutableList.of("F", "f", "N", "n", "FALSE", "false", "False", "NO", "No", "no");
 
   private static final List<String> dateFormats =
       Lists.newArrayList("yyyyMMdd", "MM/dd/yyyy", "MM-dd-yyyy", "MM.dd.yyyy",
