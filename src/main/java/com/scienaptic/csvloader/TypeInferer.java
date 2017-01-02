@@ -20,13 +20,13 @@ import static com.scienaptic.csvloader.utils.TypeUtil.*;
 
 public class TypeInferer {
   private static final Logger logger = LoggerFactory.getLogger(TypeInferer.class);
+  public static final int TEXT_THRESHOLD = 250;
 
   private TypeInferer() { }
 
   public static List<Field> inferFieldTypes(List<Column> columnData) {
     List<Field> fields = new ArrayList<>(columnData.size());
-    for (int i = 0; i < columnData.size(); i++) {
-      Column column = columnData.get(i);
+    for (Column column : columnData) {
       FieldType fieldType = infer(column.values);
       Field field = new Field(column.name, fieldType);
       fields.add(field);
@@ -42,7 +42,6 @@ public class TypeInferer {
 
     if (notEmptyValues.isEmpty()) return category;
 
-    // ewwww!!!
     if (notEmptyValues.stream().allMatch(isBoolean)) return FieldTypes.BOOLEAN$.MODULE$;
     if (notEmptyValues.stream().allMatch(isShort)) return FieldTypes.SHORT_INT$.MODULE$;
     if (notEmptyValues.stream().allMatch(isInteger)) return FieldTypes.INTEGER$.MODULE$;
@@ -67,6 +66,10 @@ public class TypeInferer {
         FieldTypes.LOCAL_DATE::new);
     if (df.isPresent()) return df.get();
 
+    if(values.stream()
+        .filter(s -> s.length() > TEXT_THRESHOLD)
+        .findAny()
+        .isPresent()) return FieldTypes.TEXT$.MODULE$;
 
     return category;
   }

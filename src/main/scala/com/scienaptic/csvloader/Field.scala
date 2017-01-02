@@ -5,6 +5,7 @@ sealed trait FieldType
 object FieldTypes {
   case object BOOLEAN extends FieldType
   case object CATEGORY extends FieldType
+  case object TEXT extends FieldType
   case object FLOAT extends FieldType
   case object SHORT_INT extends FieldType
   case object INTEGER extends FieldType

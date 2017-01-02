@@ -33,6 +33,7 @@ object MySQLBuilder {
   val fieldExpr: FieldType => String = {
     case BOOLEAN => "TINYINT(1)"
     case CATEGORY => "VARCHAR(255)"
+    case TEXT => "TEXT"
     case FLOAT => "DECIMAL(10, 5)"
     case SHORT_INT => "MEDIUMINT"
     case INTEGER => "INT"
