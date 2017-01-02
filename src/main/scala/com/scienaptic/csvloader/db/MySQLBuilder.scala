@@ -19,10 +19,15 @@ object MySQLBuilder {
     "dd-MM-yyyy" -> "%d-%m-%Y",
     "MM/dd/yyyy" -> "%m/%d/%Y",
     "MM-dd-yyyy" -> "%m-%d-%Y",
+    "yyyy/MM/dd" -> "%Y/%m/%d",
+    "dd/MMM/yyyy" -> "%d/%M/%Y",
 
     // date time
     "yyyy-MM-dd HH:mm:ss" -> "%Y-%m-%d %H:%i:%s",
     "yyyy-MM-dd'T'HH:mm:ss" -> "%Y-%m-%dT%H:%i:%s"
+//    "yyyy-MM-dd HH:mm:ss.s" -> "",
+//    "YYYY-MM-DDThh:mm:ss.sTZD" -> "",
+//    "YYYY-mm-ddTHH:MM:ssZ" -> ""
   )
 
   val mysqlBooleanFormats = {
