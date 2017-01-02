@@ -18,6 +18,7 @@ object MySQLBuilder {
     "dd-MMM-yyyy" -> "%d-%M-%Y",
     "dd-MM-yyyy" -> "%d-%m-%Y",
     "MM/dd/yyyy" -> "%m/%d/%Y",
+    "MM-dd-yyyy" -> "%m-%d-%Y",
 
     // date time
     "yyyy-MM-dd HH:mm:ss" -> "%Y-%m-%d %H:%i:%s",
