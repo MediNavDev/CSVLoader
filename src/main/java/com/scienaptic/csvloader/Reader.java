@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class Reader {
@@ -32,6 +29,7 @@ public final class Reader {
     try (CloseableIterator<String[]> iterator = CsvParser.separator(config.fieldSeparator)
         .quote(config.fieldDelimiter)
         .skip(config.hasHeader ? 1 : 0)
+        .trimSpaces()
         .iterator(path.toFile())) {
 
       while (iterator.hasNext()) {

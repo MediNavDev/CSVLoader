@@ -53,7 +53,7 @@ public class TypeUtil {
           .collect(collectingAndThen(toList(), ImmutableList::copyOf));
 
   private static final List<String> timeFormats =
-      Lists.newArrayList("HH:mm:ss.SSS", "hh:mm:ss a", "h:mm:ss a",
+      Lists.newArrayList("HH:mm:ss", "HH:mm:ss.SSS", "hh:mm:ss a", "h:mm:ss a",
           "hh:mm a", "h:mm a", "HHmm");
   public static final ImmutableList<Tuple2<String, DateTimeFormatter>> timeFormatters =
       timeFormats.stream()

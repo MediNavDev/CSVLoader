@@ -27,7 +27,7 @@ public class TestDateParsing {
 
     Optional<FieldTypes.LOCAL_DATE> dateFormat = TypeInferer.dateParser(dates,
         TypeUtil.dateFormatters,
-        FieldTypes.LOCAL_DATE::new);
+        FieldTypes.LOCAL_DATE::new, LocalDate::parse);
     assertNotNull(dateFormat);
     assertTrue(dateFormat.isPresent());
     FieldTypes.LOCAL_DATE localDate = dateFormat.get();

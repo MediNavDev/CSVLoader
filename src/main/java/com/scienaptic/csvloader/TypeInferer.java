@@ -6,11 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -51,19 +55,19 @@ public class TypeInferer {
     Optional<FieldTypes.LOCAL_DATE_TIME> dtf = dateParser(
         notEmptyValues,
         dateTimeFormatters,
-        FieldTypes.LOCAL_DATE_TIME::new);
+        FieldTypes.LOCAL_DATE_TIME::new, LocalDateTime::parse);
     if (dtf.isPresent()) return dtf.get();
 
     Optional<FieldTypes.LOCAL_TIME> tf = dateParser(
         notEmptyValues,
         timeFormatters,
-        FieldTypes.LOCAL_TIME::new);
+        FieldTypes.LOCAL_TIME::new, LocalTime::parse);
     if (tf.isPresent()) return tf.get();
 
     Optional<FieldTypes.LOCAL_DATE> df = dateParser(
         notEmptyValues,
         dateFormatters,
-        FieldTypes.LOCAL_DATE::new);
+        FieldTypes.LOCAL_DATE::new, LocalDate::parse);
     if (df.isPresent()) return df.get();
 
     if(values.stream()
@@ -76,12 +80,13 @@ public class TypeInferer {
 
   static <T extends FieldType> Optional<T> dateParser(List<String> values,
                                                       List<Tuple2<String, DateTimeFormatter>> formatters,
-                                                      Function<String, T> constructor) {
+                                                      Function<String, T> constructor,
+                                                      BiFunction<CharSequence, DateTimeFormatter, Temporal> parser) {
     String aValue = values.get(0);
     List<Tuple2<String, DateTimeFormatter>> tuple2s =
         formatters
             .stream()
-            .filter(pair -> parseable(aValue, pair.right))
+            .filter(pair -> parseable(aValue, pair.right, parser))
             .collect(Collectors.toList());
 
     if (tuple2s.isEmpty()) {return Optional.empty();}
@@ -89,14 +94,16 @@ public class TypeInferer {
     logger.info("Date formats: {}", tuple2s.stream().map(x -> x.left).collect(Collectors.joining(",", "[", "]")));
 
     return tuple2s.stream()
-        .filter(tuple2 -> values.stream().allMatch(value -> parseable(value, tuple2.right)))
+        .filter(tuple2 -> values.stream().allMatch(value -> parseable(value, tuple2.right, parser)))
         .findFirst()
         .map(xs -> constructor.apply(xs.left));
   }
 
-  private static boolean parseable(String probablyDate, DateTimeFormatter fmt) {
+  private static boolean parseable(String probablyDate,
+                                   DateTimeFormatter fmt,
+                                   BiFunction<CharSequence, DateTimeFormatter, Temporal> dateParser) {
     try {
-      LocalDate.parse(probablyDate, fmt);
+      dateParser.apply(probablyDate, fmt);
       return true;
     } catch (DateTimeParseException e) {
       return false;

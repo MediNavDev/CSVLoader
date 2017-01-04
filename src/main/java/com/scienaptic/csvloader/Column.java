@@ -35,5 +35,13 @@ public final class Column {
     public Column build() {
       return new Column(name, ImmutableList.copyOf(values));
     }
+
+    @Override
+    public String toString() {
+      return "Builder{" +
+          "name='" + name + '\'' +
+          ", values=" + values +
+          '}';
+    }
   }
 }
