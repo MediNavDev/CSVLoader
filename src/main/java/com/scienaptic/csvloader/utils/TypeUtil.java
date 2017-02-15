@@ -22,11 +22,9 @@ public class TypeUtil {
 
   public static final ImmutableList<String> MISSING_INDICATORS = ImmutableList.of("NaN", "*", "NA", "null");
 
-  // A more restricted set of 'true' strings that is used for column type detection
   public static final ImmutableList<String> TRUE_STRINGS_FOR_DETECTION =
       ImmutableList.of("T", "t", "Y", "y", "TRUE", "true", "True", "YES", "Yes", "yes");
 
-  // A more restricted set of 'false' strings that is used for column type detection
   public static final ImmutableList<String> FALSE_STRINGS_FOR_DETECTION =
       ImmutableList.of("F", "f", "N", "n", "FALSE", "false", "False", "NO", "No", "no");
 
@@ -42,7 +40,6 @@ public class TypeUtil {
           .map(fmt -> Tuple2.of(fmt, DateTimeFormatter.ofPattern(fmt)))
           .collect(collectingAndThen(toList(), ImmutableList::copyOf));
 
-//  2016-11-09T01:52:53
   private static final List<String> dateTimeFormats =
       Lists.newArrayList("yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm:ss.SSS",
           "MM/dd/yyyy hh:mm:ss a", "dd-MMM-yyyy HH:mm",
